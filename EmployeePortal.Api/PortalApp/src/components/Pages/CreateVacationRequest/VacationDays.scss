@@ -1,0 +1,121 @@
+.vacation-days {
+  margin-bottom: 20px;
+  width: 75%;
+  margin-left: 160px;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.leave-application {
+  width: 75%;
+  margin-top: 50px;
+  margin-bottom: 60px;
+  margin-left: 160px;
+}
+
+.year-selector {
+  width: 10%;
+  float: right;
+}
+
+.public-holidays :deep(.v-data-table thead th span) {
+  font-weight: 500;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.highlighted-date {
+  background-color: var(--bold-main-blue);
+}
+
+.header-icon {
+  margin-right: 16px;
+}
+
+.vacation-dialog {
+  .close-button-div {
+    text-align: unset !important;
+    margin: auto;
+    width: 24px;
+    float: right;
+
+    .close-button {
+      border-radius: 8px !important;
+      padding: unset !important;
+      min-width: 24px !important;
+      height: 24px !important;
+    }
+  }
+}
+
+.vacation-dialog {
+  width: 1000px !important;
+}
+
+.card-dialog {
+  border-radius: 20px !important;
+  height: 500px;
+  color: var(--bold-main-blue);
+  font-size: small;
+}
+
+.card-dialog :deep(label) {
+  font-size: small;
+}
+
+.open-leave {
+  margin-top: 20px;
+  float: right;
+  background-color: var(--primary-blue) !important;
+  color: rgb(var(--v-theme-on-primary)) !important;
+}
+
+.banner {
+  background-color: var(--status-active-add) !important;
+  color: var(--white);
+}
+
+.banner-icon {
+  margin-left: 20px;
+}
+
+.banner-text {
+  margin-left: 10px;
+}
+
+.dialog-title {
+  color: var(--primary-blue);
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  margin-top: 15px;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.dialog-title :deep(span) {
+  font-weight: 600;
+}
+
+.vacation-form {
+  margin: 30px;
+}
+
+.save-button {
+  float: right;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px !important;
+  min-width: 30px !important;
+  height: 20px !important;
+  font-size: 90%;
+  background-color: var(--primary-blue) !important;
+  color: var(--primary-blue) !important;
+}
+
+.vacation-form :deep(input) {
+  border-radius: 20px;
+  color: #44bbee;
+}

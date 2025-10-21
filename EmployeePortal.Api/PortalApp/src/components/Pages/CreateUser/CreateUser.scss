@@ -1,0 +1,51 @@
+.datecalendar {
+  position: fixed;
+  z-index: 1;
+  cursor: pointer;
+  width: 23%;
+}
+
+.comboBox {
+  width: 35%;
+}
+
+.create-card {
+  width: 350px;
+  height: 100px;
+  position: relative;
+}
+
+.eyeicon {
+  position: absolute;
+  cursor: pointer;
+  right: 10px;
+  margin-bottom: 20px;
+}
+
+.password-column {
+  margin-left: -200px;
+  margin-top: 10px;
+}
+
+.password-button,
+.create-button {
+  float: right;
+}
+
+.copy-alert {
+  position: fixed;
+  left: 50%;
+  bottom: 50px;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+}
+
+.form-actions {
+  margin-top: 6%;
+}
+
+.create-user {
+  width: 75%;
+  margin-left: 160px;
+  margin-top: 50px;
+}

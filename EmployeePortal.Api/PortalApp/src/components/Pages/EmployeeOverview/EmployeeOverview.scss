@@ -1,0 +1,156 @@
+.edit-dialog,
+.add-absence-dialog {
+  .close-button-div {
+    text-align: unset !important;
+    margin: auto;
+    width: 24px;
+    float: right;
+
+    .close-button {
+      border-radius: 8px !important;
+      padding: unset !important;
+      min-width: 24px !important;
+      height: 24px !important;
+    }
+  }
+}
+
+.edit-dialog,
+.add-absence-dialog {
+  width: 1000px !important;
+}
+
+.card-dialog {
+  border-radius: 20px !important;
+  color: #66c3ea;
+  font-size: small;
+}
+
+.card-dialog :deep(label) {
+  font-size: small;
+}
+
+.open-leave {
+  margin-top: 20px;
+  float: right;
+  background-color: #09599c !important;
+  color: rgb(var(--v-theme-on-primary)) !important;
+}
+
+.banner {
+  background-color: #bcd029 !important;
+  color: whitesmoke;
+}
+
+.banner-icon {
+  margin-left: 20px;
+}
+
+.banner-text {
+  margin-left: 10px;
+}
+
+.dialog-title {
+  color: #09599c;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  margin-top: 15px;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.dialog-title :deep(span) {
+  font-weight: 600;
+}
+
+.edit-form,
+.add-form {
+  margin: 40px;
+}
+
+.save-button {
+  float: right;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px !important;
+  min-width: 30px !important;
+  height: 24px !important;
+  font-size: 90%;
+  background-color: var(--primary-blue) !important;
+  color: var(--white) !important;
+}
+
+.edit-form :deep(input),
+.add-form :deep(input) {
+  border-radius: 20px;
+  color: #44bbee;
+}
+
+.vacation-table,
+.absence-table,
+.user-profile,
+.add-vacation-button,
+.vacation-tabel-admin-view {
+  width: 75%;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.vacation-table :deep(.v-data-table thead th span),
+.absence-table :deep(.v-data-table thead th span),
+.vacation-tabel-admin-view :deep(.v-data-table thead th span) {
+  font-weight: 500;
+}
+
+.vacation-table h2,
+.absence-table h2,
+.vacation-tabel-admin-view h2 {
+  margin-bottom: 20px;
+}
+
+.vacation-table .edit-status {
+  text-align: center;
+  border: #66c3ea solid 1px;
+  border-radius: 20px;
+  padding: 5px;
+  min-width: 11rem;
+}
+
+.vacation-table select {
+  text-align: center;
+}
+
+.user-profile .edit-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.user-profile .edit-buttons button {
+  color: var(--white);
+  background-color: var(--primary-blue);
+}
+
+.absence-title {
+  margin-bottom: 1rem;
+}
+
+.absence-title h2 {
+  margin-bottom: 0;
+}
+
+.checkbox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-vacation-button {
+  margin-top: 50px;
+  width: 75%;
+  margin-left: 12.5%;
+  background-color: #09599c !important;
+  color: rgb(var(--v-theme-on-primary)) !important;
+}
+

@@ -1,0 +1,267 @@
+// GanttContainer component styles
+.loading-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  width: 100%;
+}
+
+.component {
+  height: fit-content;
+  overflow-y: auto;
+  min-height: min-content;
+}
+.component .chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: Arial, sans-serif;
+  width: 100%;
+}
+
+.component .no-data-info {
+  width: 100%;
+  float: left;
+  margin-top: 20px;
+}
+
+.component .chart-container .gantt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.component .chart-container .gantt-header .color-explaination {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.component .chart-container .gantt-header .color-explaination .color-label-set {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 10px;
+  width: 30%;
+  min-width: 300px;
+  margin-top: 10px;
+}
+
+.component .chart-container .gantt-header .color-explaination .color-box {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.component .chart-container .gantt-header h1 {
+  color: #ddd;
+}
+
+.component .chart-container .buttons-container {
+  max-width: 400px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.component .chart-container .buttons-container button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--accent-color-green);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 0.5rem 0.5rem 0.5rem 0rem;
+  min-width: 100px;
+}
+
+.component .chart-container .gantt-chart {
+  display: flex;
+  width: 100%;
+  font-size: 14px;
+  border-collapse: collapse;
+  border-radius: 1rem;
+  overflow-x: hidden;
+}
+
+.component .chart-container .gantt-chart .gantt-table-container {
+  border-collapse: collapse;
+  flex-basis: 5%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  min-width: 100px;
+  overflow-y: auto;
+}
+
+.component .chart-container .gantt-chart .gantt-diagram-container {
+  flex-grow: 1;
+  border-collapse: collapse;
+  overflow-y: auto;
+}
+
+// GanttDiagram component styles
+
+.gantt-diagram {
+  width: 100%;
+  overflow-x: scroll;
+  border-radius: 0 1rem 0 1rem;
+}
+.gantt-diagram table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.gantt-diagram thead {
+  position: sticky;
+  height: 80px;
+  box-shadow: #1a2935 0px 2px 5px;
+  z-index: 2;
+}
+.gantt-diagram .bottom-row:nth-child(even),
+.gantt-diagram .top-row:nth-child(even) {
+  background-color: #267ec7;
+}
+.gantt-diagram th,
+.gantt-diagram td {
+  padding: 8px;
+  text-align: left;
+  min-width: 2rem;
+}
+.gantt-diagram th {
+  text-align: center;
+  background-color: var(--primary-blue);
+  color: white;
+}
+.gantt-diagram td {
+  position: relative;
+}
+.gantt-diagram tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.gantt-diagram tr:nth-child(odd) {
+  background-color: white;
+}
+.gantt-diagram .vacation-approved,
+#approved {
+  background-color: #4caf50;
+}
+.gantt-diagram .needs-approval-vacation,
+#needs-approval-vacation {
+  background-color: #ffeb3b;
+}
+.gantt-diagram .vacation-pending,
+#pending {
+  background-color: #1f78c0;
+}
+.gantt-diagram .vacation-cancelled,
+#cancelled {
+  background-color: #f44336;
+}
+.gantt-diagram .cancellation-approved,
+#cancellation-approved {
+  background-color: #6ed0fd;
+}
+.gantt-diagram .cancellation-cancelled,
+#cancellation-cancelled {
+  background-color: #7c1ed4;
+}
+.gantt-diagram .cancellation-pending,
+#cancellation-pending {
+  background-color: #d4671e;
+}
+.gantt-diagram .needs-approval-cancellation,
+#needs-approval-cancellation {
+  background-color: #18c98e;
+}
+.gantt-diagram .company-vacation,
+#company-vacation {
+  background-color: #d41ebc;
+}
+
+.gantt-diagram .cell {
+  height: 40px;
+  z-index: 1;
+}
+.gantt-diagram .cell div {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+// GanttTable component styles
+.gantt-table {
+  width: 100%;
+  overflow-x: scroll;
+  border-collapse: collapse;
+  border-radius: 1rem 0 0 0;
+}
+.gantt-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.gantt-table th,
+.gantt-table td {
+  padding: 8px;
+  text-align: left;
+}
+.gantt-table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 40px;
+  max-width: 300px;
+}
+.gantt-table .name .gantt-table .name-header {
+  width: 100%;
+  min-width: 120px;
+  max-width: 350px;
+}
+.gantt-table .stats-header {
+  width: 3rem;
+  min-width: 2rem;
+  max-width: 4rem;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+}
+.gantt-table .stats {
+  text-align: center;
+}
+.gantt-table thead {
+  position: sticky;
+  box-shadow: #1a2935 2px 2px 5px;
+  z-index: 2;
+}
+.gantt-table th {
+  background-color: #09599c;
+  color: white;
+  height: 100px;
+}
+.gantt-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+.gantt-table tr:nth-child(odd) {
+  z-index: 1;
+  background-color: white;
+  cursor: pointer;
+}
+
+// Splitter component styles
+.splitter {
+  width: 10px;
+  background-color: var(--accent-color-green);
+  cursor: ew-resize;
+  height: inherit;
+  position: relative;
+  z-index: 10;
+}

@@ -1,0 +1,39 @@
+.overview {
+  width: 75%;
+  margin-left: 160px;
+  margin-top: 50px;
+}
+
+.overview :deep(.v-data-table thead th span) {
+  font-weight: 500;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.edit-status {
+  display: flex;
+  align-items: center;
+}
+
+.info-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  padding-bottom: 2rem;
+}
+
+.info-card .confirm-button {
+  margin-top: 1rem;
+  display: flex;
+  min-width: 200px;
+  justify-content: space-around;
+}
+
+.tableHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

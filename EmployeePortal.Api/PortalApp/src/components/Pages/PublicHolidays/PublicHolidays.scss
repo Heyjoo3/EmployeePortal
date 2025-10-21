@@ -1,0 +1,23 @@
+.add-holidays,
+.vacation-days-edit {
+  width: 75%;
+  margin-left: 160px;
+  margin-top: 50px;
+}
+
+.save-button {
+  float: right;
+  margin-top: 10px;
+  z-index: 100;
+}
+h2 {
+  margin-bottom: 25px;
+}
+
+.add-button {
+  color: white;
+  background-color: var(--status-active-add);
+}
+.public-holidays :deep(.v-data-table thead th span) {
+  font-weight: 500;
+}

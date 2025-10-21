@@ -1,0 +1,25 @@
+.add-company-vacation,
+.vacation-days-edit {
+  width: 75%;
+  margin-left: 160px;
+  margin-top: 50px;
+}
+
+.add-company-vacation {
+  margin-bottom: 100px;
+}
+
+h2 {
+  margin-bottom: 25px;
+}
+
+.add-button {
+  float: right;
+  color: white;
+  background-color: var(--primary-blue);
+  width: 100%;
+}
+
+.company-vacation :deep(.v-data-table thead th span) {
+  font-weight: 500;
+}

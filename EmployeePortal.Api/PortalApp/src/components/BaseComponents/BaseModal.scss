@@ -1,0 +1,113 @@
+.close-button-div {
+  text-align: unset !important;
+  margin: auto;
+  width: 24px;
+  float: right;
+}
+
+.close-button {
+  border-radius: 8px !important;
+  padding: unset !important;
+  min-width: 24px !important;
+  height: 24px !important;
+}
+
+.inner-dialog {
+  width: 1000px !important;
+}
+
+.dialogClass {
+  width: 75vw;
+}
+
+.card-dialog {
+  border-radius: 20px !important;
+}
+
+.card-dialog :deep(label) {
+  font-size: small;
+}
+
+.open-leave {
+  margin-top: 20px;
+  float: right;
+  background-color: var(--primary-blue) !important;
+  color: rgb(var(--v-theme-on-primary)) !important;
+}
+
+.banner {
+  color: whitesmoke;
+}
+
+.banner-icon {
+  margin-left: 20px;
+}
+
+.banner-text {
+  margin-left: 10px;
+}
+
+.dialog-title {
+  color: var(--primary-blue);
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  margin-top: 15px;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.dialog-title :deep(span) {
+  font-weight: 600;
+}
+
+.inner-form {
+  margin: 40px;
+}
+
+.inner-form :deep(input) {
+  border-radius: 20px;
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.save-button,
+.delete-button {
+  float: right;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px !important;
+  min-width: 120px !important;
+  height: 20px !important;
+  font-size: 10pt;
+  background-color: var(--primary-blue) !important;
+  color: var(--white) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inner-form :deep(input) {
+  border-radius: 20px;
+  color: var(--dark-text);
+}
+
+.inner-content {
+  margin: 40px;
+}
+
+::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--v-greyTint-base-);
+  border-radius: 36px;
+  border: none;
+}
