@@ -7,7 +7,7 @@
     :banner-text="bannerText"
     :save-button-text="saveButtonText"
     @close="$emit('close')"
-    @submit="handleSaveTask"
+    @submit="handleSaveTask()"
   >
     <template #form-content>
       <v-form ref="taskForm">
@@ -127,11 +127,15 @@
 <script setup>
 import BaseModal from '@/components/BaseComponents/BaseModal.vue'
 import BaseDatePicker from '@/components/BaseComponents/BaseDatePicker.vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { useOnboardingStore } from '@/stores/onboarding-store'
+
+const onboardingStore = useOnboardingStore()
 
 // Props
 const props = defineProps({
-  selectedTask: String
+  selectedTask: String,
+  taskGroupId: String
 })
 
 const emit = defineEmits(['close', 'submit'])
@@ -153,33 +157,33 @@ const handleSaveTask = async () => {
   }
 
   let taskData = {
-    name: taskName.value,
+    title: taskName.value,
     description: taskDescription.value,
-    type: taskType.value,
+    taskType: taskType.value,
   }
 
-  // Add task-type-specific fields
   if (taskType.value === 'TimeScheduled') {
-    // Example: You should bind startDate and endDate to refs and use them here
     taskData.startDate = startDate.value
     taskData.endDate = endDate.value
   } else if (taskType.value === 'Networking') {
-    // Example: You should bind partner, place, exampleQuestions to refs and use them here
     taskData.startDate = networkingStartDate.value
     taskData.partner = partner.value
     taskData.place = place.value
     taskData.exampleQuestions = exampleQuestions.value
   } else if (taskType.value === 'Project') {
-    // Example: You should bind priority and material to refs and use them here
     taskData.priority = priority.value
     taskData.material = material.value
   }
 
-  console.log('Saving task:', taskData)
-  emit('submit', taskData)
+  if (props.selectedTask) {
+    taskData.id = props.selectedTask 
+  }
+
+  onboardingStore.actions.saveTask(props.taskGroupId, taskData)
+  emit('submit')
+
 }
 
-// Add refs for task-type-specific fields
 const startDate = ref(null)
 const endDate = ref(null)
 const networkingStartDate = ref(null)
@@ -201,4 +205,9 @@ const taskName = ref(props.selectedTask || '')
 const taskDescription = ref('')
 const taskType = ref('')
 const taskForm = ref(null)
+
+onMounted(() => {
+  console.log('EditOnboardingTask mounted with selectedTask:', props.selectedTask)
+  console.log('Task Group ID:', props.taskGroupId)
+})
 </script>

@@ -36,8 +36,9 @@ namespace EmployeePortal.Services
 
                 return _mapper.Map<OnboardingPlanDto>(onboardingPlan);
             }
-            catch
+            catch (Exception ex)
             {
+                var er = ex;
                 return onboardingPlanDataDto;
             }
             

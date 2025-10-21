@@ -104,6 +104,7 @@
     v-if="showEditTaskDialog"
     @close="openEditTaskDialog(false, null)"
     :selectedTask="selectedTask"
+    
   />
   <ViewOnboardingTask
     v-if="showViewTaskDialog"

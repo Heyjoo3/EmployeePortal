@@ -5,7 +5,7 @@
     >
     <v-list v-for="task in tasks" :key="task.id" bg-color="var(--very-light-blue)">
       <div class="list-item">
-        <div class="item-title">{{ task.name }}</div>
+        <div class="item-title">{{ task.title }}</div>
         <div class="buttons">
           <v-btn
             :color="'primary'"
@@ -41,6 +41,7 @@
     @close="openEditTaskDialog(false, null)"
     @submit="handleSaveTask"
     :selectedTask="selectedTask"
+    :taskGroupId="props.groupId"
   />
   <ViewOnboardingTask
     v-if="showViewTaskDialog"
@@ -83,21 +84,22 @@ const openViewTaskDialog = (show, task) => {
 }
 
 const handleSaveTask = (payload) => {
-   const newTask = {
-    id: payload.id || Date.now(),
-    ...payload,
-  }
+  //  const newTask = {
+  //   id: payload.id || Date.now(),
+  //   ...payload,
+  // }
 
-  // update local copy
-  clonedTasks.value.push(newTask)
-    emit('save-task', { groupId: props.groupId, task: newTask })
+  // // update local copy
+  // clonedTasks.value.push(newTask)
+  //   emit('save-task', { groupId: props.groupId, task: newTask })
 
-  console.log('Saved Task:', clonedTasks.value[clonedTasks.value.length - 1])
+  // console.log('Saved Task:', clonedTasks.value[clonedTasks.value.length - 1])
   showEditTaskDialog.value = false
 }
 
 onMounted(() => {
        clonedTasks.value = Array.isArray(props.tasks) ? [...props.tasks] : []
+       console.log('Group ID:', props.groupId)
 
 })
 </script>

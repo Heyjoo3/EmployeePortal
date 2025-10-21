@@ -216,64 +216,64 @@ namespace EmployeePortal
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            Task.Run(async () =>
-            {
-                using (var scope = scopeFactory.CreateScope())
-                {
-                    var services = scope.ServiceProvider;
-                    var loggerFactory = services.GetRequiredService<ILoggerFactory>();
-                    try
-                    {
-                        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                        var userManager = services.GetRequiredService<UserManager<Employee>>();
-                        await EmployeePortalSeeder.SeedRolesAsync(roleManager);
-                        await EmployeePortalSeeder.SeedDatabaseAsync(userManager, roleManager);
+            //Task.Run(async () =>
+            //{
+            //    using (var scope = scopeFactory.CreateScope())
+            //    {
+            //        var services = scope.ServiceProvider;
+            //        var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+            //        try
+            //        {
+            //            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+            //            var userManager = services.GetRequiredService<UserManager<Employee>>();
+            //            await EmployeePortalSeeder.SeedRolesAsync(roleManager);
+            //            await EmployeePortalSeeder.SeedDatabaseAsync(userManager, roleManager);
 
-                        var publicHolidayService = new PublicHolidayService(
-                            services.GetRequiredService<IMapper>(),
-                            services.GetRequiredService<IPublicHolidayRepository>()
-                        );
+            //            var publicHolidayService = new PublicHolidayService(
+            //                services.GetRequiredService<IMapper>(),
+            //                services.GetRequiredService<IPublicHolidayRepository>()
+            //            );
 
-                        var vacationService = new VacationService(
-                            services.GetRequiredService<IVacationRepository>(),
-                            services.GetRequiredService<IEmployeeRepository>(),
-                            services.GetRequiredService<IAbsenceRepository>(),
-                            services.GetRequiredService<IPublicHolidayRepository>(),
-                            services.GetRequiredService<IMapper>(),
-                            services.GetRequiredService<EmployeePortalContext>(),
-                            services.GetRequiredService<IVacationStatusEmailService>()
-                        );
-
-
-                        var employeeService = new EmployeeService(
-                            services.GetRequiredService<IMapper>(),
-                            services.GetRequiredService<IEmployeeRepository>(),
-                            services.GetRequiredService<IVacationRepository>(),
-                            services.GetRequiredService<IPasswordHasher<Employee>>()
-                        );
-
-                        var absenceService = new AbsenceService(
-                            services.GetRequiredService<IAbsenceRepository>(),
-                            services.GetRequiredService<IMapper>(),
-                            services.GetRequiredService<EmployeePortalContext>()
-                        );
+            //            var vacationService = new VacationService(
+            //                services.GetRequiredService<IVacationRepository>(),
+            //                services.GetRequiredService<IEmployeeRepository>(),
+            //                services.GetRequiredService<IAbsenceRepository>(),
+            //                services.GetRequiredService<IPublicHolidayRepository>(),
+            //                services.GetRequiredService<IMapper>(),
+            //                services.GetRequiredService<EmployeePortalContext>(),
+            //                services.GetRequiredService<IVacationStatusEmailService>()
+            //            );
 
 
-                        await EmployeePortalSeeder.SeedPublicHolidays(publicHolidayService);
-                        await EmployeePortalSeeder.SeedCompanyVacation(vacationService);
-                        await EmployeePortalSeeder.SeedDatabaseAsync(userManager, roleManager);
-                        await EmployeePortalSeeder.SeedRolesAsync(roleManager);
+            //            var employeeService = new EmployeeService(
+            //                services.GetRequiredService<IMapper>(),
+            //                services.GetRequiredService<IEmployeeRepository>(),
+            //                services.GetRequiredService<IVacationRepository>(),
+            //                services.GetRequiredService<IPasswordHasher<Employee>>()
+            //            );
+
+            //            var absenceService = new AbsenceService(
+            //                services.GetRequiredService<IAbsenceRepository>(),
+            //                services.GetRequiredService<IMapper>(),
+            //                services.GetRequiredService<EmployeePortalContext>()
+            //            );
+
+
+            //            await EmployeePortalSeeder.SeedPublicHolidays(publicHolidayService);
+            //            await EmployeePortalSeeder.SeedCompanyVacation(vacationService);
+            //            await EmployeePortalSeeder.SeedDatabaseAsync(userManager, roleManager);
+            //            await EmployeePortalSeeder.SeedRolesAsync(roleManager);
 
 
 
-                    }
-                    catch (Exception ex)
-                    {
-                        var logger = loggerFactory.CreateLogger<Program>();
-                        logger.LogError(ex, "An error occurred while seeding the database.");
-                    }
-                }
-            }).Wait();
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            var logger = loggerFactory.CreateLogger<Program>();
+            //            logger.LogError(ex, "An error occurred while seeding the database.");
+            //        }
+            //    }
+            //}).Wait();
         }
     }
 }

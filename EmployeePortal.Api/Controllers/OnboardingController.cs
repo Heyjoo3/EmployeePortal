@@ -25,10 +25,19 @@ namespace EmployeePortal.Api.Controllers
         {
             if (OnboadingPlanData.TryGetValue("onboardingPlanData", out var someString))
             {
-                var onboardingPlanDto = JsonConvert.DeserializeObject<OnboardingPlanDto>(someString);
+                try
+                {
+                    var onboardingPlanDto = JsonConvert.DeserializeObject<OnboardingPlanDto>(someString);
+                    var onbaordingPlan = await _onboardingService.CreateOnboardingPlan(onboardingPlanDto);
+                    return Ok(new BaseResult { Data = onbaordingPlan, IsSuccessfull = true });
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex);
+                }
 
-                var onbaordingPlan = await _onboardingService.CreateOnboardingPlan(onboardingPlanDto);
-                return Ok(new BaseResult { Data = onbaordingPlan, IsSuccessfull = true });
+
+               
             }
             else
                 return BadRequest(ModelState.IsValid);

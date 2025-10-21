@@ -37,9 +37,11 @@
 <script setup>
 import BaseModal from '@/components/BaseComponents/BaseModal.vue'
 import { useEmployeeStore } from '@/stores/employee-store'
+import { useOnboardingStore } from '@/stores/onboarding-store'
 import { onMounted, ref, computed } from 'vue'
 
 const employeeStore = useEmployeeStore()
+const onboardingStore = useOnboardingStore()
 
 const contactPersonOptions = ref([])
 const taskGroupForm = ref(null)
@@ -79,6 +81,8 @@ const contactPersonName = computed(() => {
 })
 
 const onSubmit = async () => {
+
+  console.log('Submitting Task Group Form')
   // validate form
   const valid = taskGroupForm.value ? await taskGroupForm.value.validate() : true
   if (!valid.valid) {
@@ -86,13 +90,25 @@ const onSubmit = async () => {
     return
   }
 
-  // emit payload to parent
-  emit('submit', {
+  const group = {
     id: props.selectedGroup ? props.selectedGroup.id : null,
-    name: taskGroupName.value,
+    title: taskGroupName.value,
     contactPerson: contactPerson.value,
     contactPersonName: contactPersonName.value,
-  })
+  }
+
+  console.log('Saving Task Group Component: ', group)
+
+  onboardingStore.actions.saveTaskGroup(group)
+  emit('close')
+
+  // emit payload to parent
+  // emit('submit', {
+  //   id: props.selectedGroup ? props.selectedGroup.id : null,
+  //   name: taskGroupName.value,
+  //   contactPerson: contactPerson.value,
+  //   contactPersonName: contactPersonName.value,
+  // })
 }
 
 onMounted(() => {

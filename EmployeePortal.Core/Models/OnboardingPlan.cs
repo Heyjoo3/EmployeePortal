@@ -18,7 +18,7 @@ namespace EmployeePortal.Core.Models
         public string Title { get; set; }
         public DateTime StartDate { get; set; }
         public Status Status { get; set; } = Status.Pending;
-        public List<TaskGroup>? taskGroups { get; set; }
+        public List<TaskGroup>? TaskGroups { get; set; }
         //public Template? AdminTemplate { get; set; }
         //public Template? DepartmentTemplate { get; set; }
 

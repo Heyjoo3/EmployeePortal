@@ -4,9 +4,11 @@ import { ref, computed } from 'vue'
 import router from '@/router'
 
 export const useOnboardingStore = defineStore(
-  'onboarding',() => {
+  'onboarding',
+  () => {
     return {
       state,
+      getters,
       actions
     }
   },
@@ -17,22 +19,90 @@ const state = ref({
   currentTemplate: {
     id: null,
     name: '',
-    groups: [], // each group: { id, name, contactPerson, contactPersonName, tasks: [] }
+    groups: [] // each group: { id, name, contactPerson, contactPersonName, tasks: [] }
   },
+  onboardingPlans: [],
+  currentTask: null,
+  currentGroup: null,
+  currentTasks: [],
+  currentGroups: [],
+  currentDetails: null
+})
+
+const getters = computed({
+  currentTemplate: () => state.value.currentTemplate,
+  onboardingPlans: () => state.value.onboardingPlans,
+  currentTask: () => state.value.currentTask,
+  currentGroup: () => state.value.currentGroup,
+  currentGroups: () => state.value.currentGroups,
+  currentDetails: () => state.value.currentDetails
 })
 
 const actions = {
-  async createOnboardingPlan (onboardingPlan) {
+  saveTask(taskGroupId, task) {
+    const group = state.value.currentGroups.find((g) => g.id === taskGroupId)
+    if (!group) {
+      throw new Error('Group not found')
+    }
+
+    if (!Array.isArray(group.tasks)) {
+      group.tasks = []
+    }
+
+    if (group.tasks.length === 0) {
+      task.id = Date.now()
+      group.tasks.push(task)
+      return
+    }
+
+    const existingTaskIndex = group.tasks.findIndex((t) => t.id === task.id)
+    if (existingTaskIndex !== -1) {
+      group.tasks.splice(existingTaskIndex, 1, task)
+    }
+  },
+
+  saveTaskGroup(group) {
+    console.log('Saving task group:', group)
+    group.id ? (group.id = group.id) : (group.id = Date.now())
+    const existingGroupIndex = state.value.currentGroups.findIndex((g) => g.id === group.id)
+    if (existingGroupIndex !== -1) {
+      state.value.currentGroups.splice(existingGroupIndex, 1, group)
+    } else {
+      state.value.currentGroups.push(group)
+    }
+  },
+
+  async createOnboardingPlan(onboardingPlan) {
     try {
       console.log('store data:', onboardingPlan)
+      onboardingPlan.taskGroups = state.value.currentGroups
+      console.log('store data with groups:', onboardingPlan)
+
       const response = await onboardingService.createOnboardingPlan(onboardingPlan)
+      // resetState()
+      // router.push({ name: 'OnboardingPlans' })
       return response
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Error creating onboarding plan:', error)
       throw error
-    } 
-  },
+    }
+  }
+}
+
+const resetState = () => {
+  state.value = {
+    currentTemplate: {
+      id: null,
+      name: '',
+      groups: []
+    },
+    onboardingPlans: [],
+    currentTask: null,
+    currentGroup: null,
+    currentTasks: [],
+    currentGroups: [],
+    currentDetails: null
+  }
 }
 
 // import { defineStore } from 'pinia'
