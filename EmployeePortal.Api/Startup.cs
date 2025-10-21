@@ -259,10 +259,10 @@ namespace EmployeePortal
                         );
 
 
-                        //await EmployeePortalSeeder.SeedPublicHolidays(publicHolidayService);
-                        //await EmployeePortalSeeder.SeedCompanyVacation(vacationService);
-                        //await EmployeePortalSeeder.SeedDatabaseAsync(userManager, roleManager);
-                        //await EmployeePortalSeeder.SeedRolesAsync(roleManager);
+                        await EmployeePortalSeeder.SeedPublicHolidays(publicHolidayService);
+                        await EmployeePortalSeeder.SeedCompanyVacation(vacationService);
+                        await EmployeePortalSeeder.SeedDatabaseAsync(userManager, roleManager);
+                        await EmployeePortalSeeder.SeedRolesAsync(roleManager);
 
 
 
