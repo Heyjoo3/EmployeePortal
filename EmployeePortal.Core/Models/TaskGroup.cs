@@ -13,15 +13,13 @@ namespace EmployeePortal.Core.Models
         public class TaskGroup
         {
             [Key]
-            public Guid Id { get; set; }
+            public Guid? Id { get; set; }
             public string Title { get; set; }
-            public Guid OnboardingPlanId { get; set; }
-            public OnboardingPlan OnboardingPlan { get; set; }
-        //public bool IsDepartmentSpecific { get; set; }
-        //public bool IsUserSpecific { get; set; }
-        public List<BaseTask> Tasks { get; set; }
-
-      
+            public Guid? OnboardingPlanId { get; set; }
+            public OnboardingPlan? OnboardingPlan { get; set; }
+            public List<BaseTask>? Tasks { get; set; }
+            public string? ReferencePerson { get; set; }
+            [ForeignKey(nameof(ReferencePerson))]
+            public Employee? ReferenceEmployee { get; set; } // Navigation property
     }
-    
 }

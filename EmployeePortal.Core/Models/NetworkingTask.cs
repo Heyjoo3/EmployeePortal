@@ -9,8 +9,8 @@ namespace EmployeePortal.Core.Models
 {
     public class NetworkingTask : BaseTask
     {
-        public string? referencePerson { get; set; }
         public string? Location { get; set; }
-        public DateTime ScheduledDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public string? ExampleQuestions { get; set; }
     }
 }

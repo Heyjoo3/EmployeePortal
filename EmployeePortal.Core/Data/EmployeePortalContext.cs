@@ -40,10 +40,57 @@ namespace EmployeePortal.Core.Data
                 .Property(e => e.Remarks)
                 .HasColumnType("nvarchar(max)");
 
+            modelBuilder.Entity<OnboardingPlan>()
+                .HasOne(tg => tg.ReferenceEmployee)
+                .WithMany()
+                .HasForeignKey(tg => tg.ReferencePerson)
+                .HasPrincipalKey(e => e.Id); 
+
+            modelBuilder.Entity<TaskGroup>()
+                .HasOne(tg => tg.ReferenceEmployee)
+                .WithMany()
+                .HasForeignKey(tg => tg.ReferencePerson)
+                .HasPrincipalKey(e => e.Id); 
+
+
             modelBuilder.Entity<BaseTask>()
-    .HasDiscriminator<string>("TaskType")
-    .HasValue<TodoTask>("TodoTask")
-    .HasValue<NetworkingTask>("NetworkingTask");
+                 .HasOne(b => b.ReferenceEmployee)
+                 .WithMany()
+                 .HasForeignKey(b => b.ReferencePerson)
+                 .OnDelete(DeleteBehavior.Restrict); // Optional: Prevent cascading deletes
+
+            modelBuilder.Entity<BaseTask>()
+                .HasDiscriminator<string>("TaskType")
+                .HasValue<TodoTask>("TodoTask")
+                .HasValue<NetworkingTask>("NetworkingTask")
+                .HasValue<ProjectTask>("ProjectTask")
+                .HasValue<TimeScheduledTask>("TimeScheduledTask");
+
+            modelBuilder.Entity<TodoTask>()
+                .Property(t => t.Description)
+                .HasColumnName("Description");
+            modelBuilder.Entity<NetworkingTask>()
+                .Property(t => t.StartDate)
+                .HasColumnName("StartDate");
+            modelBuilder.Entity<ProjectTask>()
+                .Property(t => t.EndDate)
+                .HasColumnName("EndDate");
+            modelBuilder.Entity<ProjectTask>()
+                .Property(t => t.StartDate)
+                .HasColumnName("StartDate");
+            modelBuilder.Entity<ProjectTask>()
+                .Property(t => t.Description)
+                .HasColumnName("Description");
+            modelBuilder.Entity<TimeScheduledTask>()
+               .Property(t => t.EndDate)
+               .HasColumnName("EndDate");
+            modelBuilder.Entity<TimeScheduledTask>()
+                .Property(t => t.StartDate)
+                .HasColumnName("StartDate");
+            modelBuilder.Entity<TimeScheduledTask>()
+                .Property(t => t.Description)
+                .HasColumnName("Description");
+
 
         }
     }

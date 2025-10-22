@@ -15,12 +15,15 @@ namespace EmployeePortal.Core.Models
         public Guid OnbardingId { get; set; }
         public Guid EmployeeId { get; set; }
         public Employee? Employee { get; set; }
-        public string Title { get; set; }
         public DateTime StartDate { get; set; }
-        public Status Status { get; set; } = Status.Pending;
+        public DateTime EndDate { get; set; }
+        public Status Status { get; set; } = Status.Open;
         public List<TaskGroup>? TaskGroups { get; set; }
         //public Template? AdminTemplate { get; set; }
         //public Template? DepartmentTemplate { get; set; }
+        public string? ReferencePerson { get; set; }
+        [ForeignKey(nameof(ReferencePerson))]
+        public Employee? ReferenceEmployee { get; set; }
 
     } 
 }

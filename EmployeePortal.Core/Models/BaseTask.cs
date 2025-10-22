@@ -15,25 +15,24 @@ namespace EmployeePortal.Core.Models
         public Guid Id { get; set; }
 
         public string Title { get; set; }
-        public Status Status { get; set; }
+        public Status Status { get; set; } = Status.Open;
         public string TaskType { get; set; }
 
-        public Guid TaskGroupId { get; set; }
-        public TaskGroup TaskGroup { get; set; }
+        public Guid? TaskGroupId { get; set; }
+        public TaskGroup? TaskGroup { get; set; }
+
+        public string? ReferencePerson { get; set; }
+        [ForeignKey(nameof(ReferencePerson))]
+        public Employee? ReferenceEmployee { get; set; }
+
 
     }
 
     public enum Status
     {
-        Pending = 1,
+        Open = 1,
         InProgress = 2,
-        Completed = 3,
-    }
-
-    public enum TaskType
-    {
-        Todo = 1,
-        Networking = 2,
+        Done = 3,
     }
 }
 

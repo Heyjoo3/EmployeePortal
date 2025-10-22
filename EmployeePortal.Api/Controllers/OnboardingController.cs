@@ -34,10 +34,7 @@ namespace EmployeePortal.Api.Controllers
                 catch (Exception ex)
                 {
                     return BadRequest(ex);
-                }
-
-
-               
+                }        
             }
             else
                 return BadRequest(ModelState.IsValid);
