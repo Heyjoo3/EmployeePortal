@@ -103,8 +103,8 @@ const onboardingObject = [
     title: 'Onboardings',
     icon: 'mdi-account-file-text',
     subItems: [
-      { title: 'Onboarding1', routeName: 'OnboardingPlan' },
-      { title: 'Onboarding2', routeName: 'OnboardingPlan' }
+      { title: 'Max Mustermann', routeName: 'OnboardingPlan' },
+      { title: 'Peter Müller', routeName: 'OnboardingPlan' }
     ]
   }
 ]

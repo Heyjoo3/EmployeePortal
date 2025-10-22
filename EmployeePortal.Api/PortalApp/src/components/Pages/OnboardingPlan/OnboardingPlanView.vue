@@ -1,29 +1,27 @@
 <template>
-    <div
-      class="header"
-    >
-      <h1>Onboarding Plan - <strong>Max Mustermann</strong></h1>
+  <div class="header">
+    <h1>Onboarding Plan - <strong>Max Mustermann</strong></h1>
 
-      <v-btn color="primary" @click="openEditDetailsDialog(true, null)"> Bearbeiten </v-btn>
-    </div>
-    <div class="onboardingPage">
+    <v-btn color="primary" @click="openEditDetailsDialog(true, null)"> Bearbeiten </v-btn>
+  </div>
+  <div class="onboardingPage">
+    <div class="plan-details" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 30px ;">
+      <div>
+        <p><strong>Startdatum:</strong> 01.10.2025</p>
+        <p><strong>Enddatum:</strong> 31.10.2025</p>
+        <p><strong>Ansprechpartner:</strong> Lisa Schulz</p>
+      </div>
 
-    <div class="plan-details">
-        <div>
-        <p><strong>Status</strong> In Bearbeitung</p>
-        <p><strong>Fortschritt:</strong> 100%</p>
-        </div>
-        <div>
-        <p><strong>Startdatum:</strong> 01.10.2023</p>
-        <p><strong>Enddatum:</strong> 31.10.2023</p>
-        </div>
-        <p><strong>Ansprechpartner:</strong> Peter Müller</p>
+      <div class="status">
+          <h4><strong>Status</strong> In Bearbeitung</h4>
+          <h4><strong>Fortschritt:</strong> 33%</h4>
+      </div>
     </div>
 
-     <div class="task-groups">
-      <v-btn color="primary" width="100%" class="mb-3" @click="openEditTaskGroupDialog(true, null)"
+    <div class="task-groups">
+      <!-- <v-btn color="primary" width="100%" class="mb-3" @click="openEditTaskGroupDialog(true, null)"
         >+ Aufgabengruppe hinzufügen</v-btn
-      >
+      > -->
 
       <v-expansion-panels>
         <v-expansion-panel bg-color="var(--very-light-blue)">
@@ -55,12 +53,18 @@
             </div>
           </v-expansion-panel-title>
           <v-expansion-panel-text>
-            <v-btn color="primary" width="100%" @click="openEditTaskDialog(true, null)"
+            <!-- <v-btn color="primary" width="100%" @click="openEditTaskDialog(true, null)"
               >+ Aufgabe hinzufügen</v-btn
-            >
-            <v-list v-for="i in 30" :key="i" bg-color="var(--very-light-blue)">
+            > -->
+            <v-list v-for="i in 3" :key="i" bg-color="var(--very-light-blue)">
               <div class="list-item">
-                <div class="item-title">Aufgabe</div>
+                <div class="item-title">
+                  Aufgabe {{ i }}
+                  <br />
+                  <p>Status: <strong :style="{ color: i % 2 === 0 ? '#ec8c0e' : '#28a745' }">{{ i % 2 === 0 ? 'In Bearbeitung' : 'Abgeschlossen' }}
+                  </strong>
+                  </p>
+                </div>
                 <div class="buttons">
                   <v-btn
                     :color="'primary'"
@@ -104,7 +108,6 @@
     v-if="showEditTaskDialog"
     @close="openEditTaskDialog(false, null)"
     :selectedTask="selectedTask"
-    
   />
   <ViewOnboardingTask
     v-if="showViewTaskDialog"
@@ -244,5 +247,13 @@ const selectedTemplates = ref([])
     0px 3px 1px -2px var(--v-shadow-key-umbra-opacity, rgba(0, 0, 0, 0.2)),
     0px 2px 2px 0px var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, 0.14)),
     0px 1px 5px 0px var(--v-shadow-key-ambient-opacity, rgba(0, 0, 0, 0.12));
+}
+
+.status {
+
+ border-radius: 4px;
+ padding: 8px 12px;
+  background-color: #ec8c0e;
+  color: white;
 }
 </style>
