@@ -39,18 +39,15 @@ const getters = computed({
 })
 
 const actions = {
+  //Saves task to state to make changes and additions persistent across components
   saveTask(taskGroupId, task) {
     const group = state.value.currentGroups.find((g) => g.id === taskGroupId)
     if (!group) {
       throw new Error('Group not found')
     }
 
-    if (!Array.isArray(group.tasks)) {
-      group.tasks = []
-    }
-
     if (group.tasks.length === 0) {
-      task.id = Date.now()
+      task.id = Date.now() // simple unique ID for new tasks before saved to backend
       group.tasks.push(task)
       return
     }
@@ -60,10 +57,12 @@ const actions = {
       group.tasks.splice(existingTaskIndex, 1, task)
     }
   },
-
+//Saves task group to state to make changes and additions persistent across components
   saveTaskGroup(group) {
     console.log('Saving task group:', group)
-    group.id ? (group.id = group.id) : (group.id = Date.now())
+    if (group.id == null) {
+      group.id = Date.now() // simple unique ID for new groups before saved to backend
+    }
     const existingGroupIndex = state.value.currentGroups.findIndex((g) => g.id === group.id)
     if (existingGroupIndex !== -1) {
       state.value.currentGroups.splice(existingGroupIndex, 1, group)
@@ -71,7 +70,7 @@ const actions = {
       state.value.currentGroups.push(group)
     }
   },
-
+//Creates onboarding plan by calling onboarding service and then resets state and navigates to created plan
   async createOnboardingPlan(onboardingPlan) {
     try {
       console.log('store data:', onboardingPlan)
@@ -79,14 +78,14 @@ const actions = {
       console.log('store data with groups:', onboardingPlan)
 
       const response = await onboardingService.createOnboardingPlan(onboardingPlan)
-      // resetState()
-      // router.push({ name: 'OnboardingPlans' })
+      resetState()
+      router.push({ name: 'OnboardingPlans/' + response.id })
       return response
     } catch (error) {
       console.error('Error creating onboarding plan:', error)
       throw error
     }
-  }
+  },
 }
 
 const resetState = () => {
