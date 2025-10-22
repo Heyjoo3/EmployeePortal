@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import OnboardingTaskGroups from './OnboardingTaskGroups.vue'
+import OnboardingTaskGroups from './Common/OnboardingTaskGroups.vue'
 import { ref } from 'vue'
 
 const templateName = ref('')

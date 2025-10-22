@@ -122,10 +122,10 @@
 </template>
 
 <script setup>
-import EditOnboardingPlanDetails from './EditOnboardingPlanDetails.vue'
-import EditOnboardingTask from '@/components/Pages/OnboardingPlan/EditOnboardingTask.vue'
-import EditOnboardingTaskGroup from '@/components/Pages/OnboardingPlan/EditOnboardingTaskGroup.vue'
-import ViewOnboardingTask from './ViewOnboardingTask.vue'
+import EditOnboardingPlanDetails from './AddEditDialogs/EditOnboardingPlanDetails.vue'
+import EditOnboardingTask from '@/components/Pages/OnboardingPlan/AddEditDialogs/EditOnboardingTask.vue'
+import EditOnboardingTaskGroup from '@/components/Pages/OnboardingPlan/AddEditDialogs/EditOnboardingTaskGroup.vue'
+import ViewOnboardingTask from './Common/ViewOnboardingTask.vue'
 import { ref } from 'vue'
 
 const showEditDetailsDialog = ref(false)
@@ -142,9 +142,9 @@ const plan = ref({
   contactPerson: 'Peter Müller'
 })
 
-const showTemplateInfo = (template) => {
-  console.log('Show info for template:', template)
-}
+// const showTemplateInfo = (template) => {
+//   console.log('Show info for template:', template)
+// }
 
 const openEditTaskDialog = (show, task) => {
   showEditTaskDialog.value = show
@@ -161,12 +161,12 @@ const openEditTaskGroupDialog = (show, group) => {
   console.log('Open Edit Task Group Dialog:', show, group)
 }
 
-const openEditDetailsDialog = (show, plan) => {
+const openEditDetailsDialog = (show) => {
   showEditDetailsDialog.value = show
   console.log('Open Edit Details Dialog:', show)
 }
 
-const selectedTemplates = ref([])
+// const selectedTemplates = ref([])
 </script>
 
 <style scoped>

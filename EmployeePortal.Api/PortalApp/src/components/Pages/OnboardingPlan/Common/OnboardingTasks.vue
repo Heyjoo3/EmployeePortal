@@ -51,8 +51,8 @@
 </template>
 
 <script setup>
-import EditOnboardingTask from '@/components/Pages/OnboardingPlan/EditOnboardingTask.vue'
-import ViewOnboardingTask from '@/components/Pages/OnboardingPlan/ViewOnboardingTask.vue'
+import EditOnboardingTask from '@/components/Pages/OnboardingPlan/AddEditDialogs/EditOnboardingTask.vue'
+import ViewOnboardingTask from '@/components/Pages/OnboardingPlan/Common/ViewOnboardingTask.vue'
 import { onMounted, ref } from 'vue'
 
 const props = defineProps({
@@ -66,7 +66,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['save-task'])
+// const emit = defineEmits(['save-task'])
 
 const showEditTaskDialog = ref(false)
 const showViewTaskDialog = ref(false)
@@ -83,7 +83,7 @@ const openViewTaskDialog = (show, task) => {
   console.log('Open View Task Dialog:', show, task)
 }
 
-const handleSaveTask = (payload) => {
+const handleSaveTask = () => {
   //  const newTask = {
   //   id: payload.id || Date.now(),
   //   ...payload,

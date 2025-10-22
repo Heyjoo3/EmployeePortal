@@ -114,7 +114,7 @@
 
 <script setup>
 import PlanDetailsCard from './PlanDetailsCard.vue'
-import OnboardingTaskGroups from '../OnboardingTaskGroups.vue'
+import OnboardingTaskGroups from '../Common/OnboardingTaskGroups.vue'
 import { useDateConverter } from '@/composables/useDateConverter'
 // import EditOnboardingTask from '@/components/Pages/OnboardingPlan/EditOnboardingTask.vue'
 // import EditOnboardingTaskGroup from '@/components/Pages/OnboardingPlan/EditOnboardingTaskGroup.vue'

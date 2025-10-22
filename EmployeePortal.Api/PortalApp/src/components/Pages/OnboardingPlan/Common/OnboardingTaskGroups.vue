@@ -36,7 +36,7 @@
 <script setup>
 import { useOnboardingStore } from '@/stores/onboarding-store'
 import OnboardingTasks from './OnboardingTasks.vue'
-import EditOnboardingTaskGroup from '@/components/Pages/OnboardingPlan/EditOnboardingTaskGroup.vue'
+import EditOnboardingTaskGroup from '@/components/Pages/OnboardingPlan/AddEditDialogs/EditOnboardingTaskGroup.vue'
 import { onMounted, ref, toRef } from 'vue'
 
 const onboardingStore = useOnboardingStore()
