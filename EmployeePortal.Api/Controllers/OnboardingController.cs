@@ -21,7 +21,7 @@ namespace EmployeePortal.Api.Controllers
         }
 
         [HttpPost("CreateOnboardingPlan")]
-        public async Task<IActionResult> CreateOnboardingPlan(IFormCollection OnboadingPlanData)
+        public async Task<IActionResult> CreateOnboardingPlan(From)
         {
             if (OnboadingPlanData.TryGetValue("onboardingPlanData", out var someString))
             {
@@ -62,8 +62,8 @@ namespace EmployeePortal.Api.Controllers
             return NotFound(new BaseResult { IsSuccessfull = false, Message = "Onboarding plan not found." });
         }
 
-        [HttpPut("UpdateOnboardingPlan")]
-        public async Task<IActionResult> UpdateOnboardingPlan(IFormCollection OnboardingPlanData)
+        [HttpPut("UpdateOnboardingPlanOld")]
+        public async Task<IActionResult> UpdateOnboardingPlanOld(IFormCollection OnboardingPlanData)
         {
             if (OnboardingPlanData.TryGetValue("onboardingPlanData", out var someString))
             {
@@ -81,5 +81,18 @@ namespace EmployeePortal.Api.Controllers
                 return BadRequest(new BaseResult { IsSuccessfull = false, Message = "Invalid onboarding plan data." });
             }
         }
-    }
+
+        [HttpPost("UpdateOnboardingPlan")]
+        public async Task<ActionResult<OnboardingPlanDto>> UpdateOnboardingPlan([FromBody] OnboardingPlanDto onboardingPlanDataDto)
+        {
+            try
+            {
+                var updatedPlan = await _onboardingService.UpdateOnboardingPlan(onboardingPlanDataDto);
+                return Ok(new BaseResult { Data = updatedPlan, IsSuccessfull = true });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new BaseResult { IsSuccessfull = false, Message = "Invalid Data" });
+            }
+        }
 }
