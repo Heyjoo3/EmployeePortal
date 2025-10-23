@@ -10,9 +10,9 @@ namespace EmployeePortal.Core.Dto
     {
 
         public string? Id { get; set; } 
-        public string? Title { get; set; }
+        public string Title { get; set; }
         public string? TaskType { get; set; } 
-        public string? Status { get; set; }
+        public string Status { get; set; }
         public string? Description { get; set; }
 
 

@@ -20,12 +20,40 @@ namespace EmployeePortal.Data
             get { return _context as EmployeePortalContext; }
         }
 
-        public Task CreateOnboardingPlan(OnboardingPlan onboardingPlan)
+        public Task Create(OnboardingPlan onboardingPlan)
+        {
+
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Delete(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<OnboardingPlan>> GetAllWithDetails()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<OnboardingPlan?> GetByEmployeeId(Guid employeeId)
         {
             throw new NotImplementedException();
         }
 
         public Task<OnboardingPlan?> GetByEmployeeIdAsync(Guid employeeId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<OnboardingPlan> Update(OnboardingPlan onboardingPlan)
+        {
+            _context.OnboardingPlans.Update(onboardingPlan);
+            await _context.SaveChangesAsync();
+            return onboardingPlan;
+        }
+
+        Task<OnboardingPlan> IOnboardingRepository.Create(OnboardingPlan onboardingPlan)
         {
             throw new NotImplementedException();
         }

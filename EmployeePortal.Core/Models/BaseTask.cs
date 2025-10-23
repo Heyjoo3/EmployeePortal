@@ -12,7 +12,7 @@ namespace EmployeePortal.Core.Models
     public abstract class BaseTask
     {
         [Key]
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public string Title { get; set; }
         public Status Status { get; set; } = Status.Open;

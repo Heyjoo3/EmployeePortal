@@ -55,6 +55,9 @@ namespace EmployeePortal.Api.Controllers
         public async Task<IActionResult> GetOnboardingPlan(Guid id)
         {
             var onboardingPlan = await _onboardingService.GetOnboardingPlan(id);
+            await _onboardingService.GetOnboardingPlanByEmployee(id););
+            await _onboardingService.GetAllOnboardingPlans();
+
             if (onboardingPlan != null)
             {
                 return Ok(new BaseResult { Data = onboardingPlan, IsSuccessfull = true });
@@ -62,25 +65,25 @@ namespace EmployeePortal.Api.Controllers
             return NotFound(new BaseResult { IsSuccessfull = false, Message = "Onboarding plan not found." });
         }
 
-        [HttpPut("UpdateOnboardingPlanOld")]
-        public async Task<IActionResult> UpdateOnboardingPlanOld(IFormCollection OnboardingPlanData)
-        {
-            if (OnboardingPlanData.TryGetValue("onboardingPlanData", out var someString))
-            {
-                var onboardingPlanDataDto = JsonConvert.DeserializeObject<OnboardingPlanDto>(someString);
+        //[HttpPut("UpdateOnboardingPlanOld")]
+        //public async Task<IActionResult> UpdateOnboardingPlanOld(IFormCollection OnboardingPlanData)
+        //{
+        //    if (OnboardingPlanData.TryGetValue("onboardingPlanData", out var someString))
+        //    {
+        //        var onboardingPlanDataDto = JsonConvert.DeserializeObject<OnboardingPlanDto>(someString);
 
-                var updatedPlan = await _onboardingService.UpdateOnboardingPlan(onboardingPlanDataDto);
-                if (updatedPlan != null)
-                {
-                    return Ok(new BaseResult { Data = updatedPlan, IsSuccessfull = true });
-                }
-                return NotFound(new BaseResult { IsSuccessfull = false, Message = "Onboarding plan not found." });
-            }
-            else
-            {
-                return BadRequest(new BaseResult { IsSuccessfull = false, Message = "Invalid onboarding plan data." });
-            }
-        }
+        //        var updatedPlan = await _onboardingService.UpdateOnboardingPlan(onboardingPlanDataDto);
+        //        if (updatedPlan != null)
+        //        {
+        //            return Ok(new BaseResult { Data = updatedPlan, IsSuccessfull = true });
+        //        }
+        //        return NotFound(new BaseResult { IsSuccessfull = false, Message = "Onboarding plan not found." });
+        //    }
+        //    else
+        //    {
+        //        return BadRequest(new BaseResult { IsSuccessfull = false, Message = "Invalid onboarding plan data." });
+        //    }
+        //}
 
         [HttpPost("UpdateOnboardingPlan")]
         public async Task<ActionResult<OnboardingPlanDto>> UpdateOnboardingPlan([FromBody] OnboardingPlanDto onboardingPlanDataDto)

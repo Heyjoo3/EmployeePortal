@@ -9,9 +9,11 @@ namespace EmployeePortal.Core.Repositories
 {
     public interface IOnboardingRepository :IRepository<OnboardingPlan>
     {
-        Task<OnboardingPlan?> GetByEmployeeIdAsync(Guid employeeId);
-        //AddAsync, UpdateAsync, DeleteAsync inherited from IRepository
-        Task CreateOnboardingPlan(OnboardingPlan onboardingPlan);
+        Task<OnboardingPlan?> GetByEmployeeId(Guid employeeId);
+        Task<IEnumerable<OnboardingPlan>> GetAllWithDetails();
+        Task <OnboardingPlan> Create(OnboardingPlan onboardingPlan);
+        Task <OnboardingPlan> Update(OnboardingPlan onboardingPlan);
+        Task <bool> Delete(Guid id);
 
     }
 }
