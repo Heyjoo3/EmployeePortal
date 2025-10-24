@@ -46,6 +46,11 @@ namespace EmployeePortal.Data
             throw new NotImplementedException();
         }
 
+        public Task<OnboardingPlan> GetPlanById(OnboardingPlan onboardingPlan)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<OnboardingPlan> Update(OnboardingPlan onboardingPlan)
         {
             _context.OnboardingPlans.Update(onboardingPlan);

@@ -1,5 +1,6 @@
 ﻿using EmployeePortal.Core.Dto;
 using EmployeePortal.Core.Helpers;
+using EmployeePortal.Core.Models;
 using EmployeePortal.Core.Services;
 using EmployeePortal.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,7 @@ namespace EmployeePortal.Api.Controllers
         }
 
         [HttpPost("CreateOnboardingPlan")]
-        public async Task<IActionResult> CreateOnboardingPlan(From)
+        public async Task<IActionResult> CreateOnboardingPlan(IFormCollection OnboadingPlanData)
         {
             if (OnboadingPlanData.TryGetValue("onboardingPlanData", out var someString))
             {
@@ -34,7 +35,7 @@ namespace EmployeePortal.Api.Controllers
                 catch (Exception ex)
                 {
                     return BadRequest(ex);
-                }        
+                }
             }
             else
                 return BadRequest(ModelState.IsValid);
@@ -54,8 +55,9 @@ namespace EmployeePortal.Api.Controllers
         [HttpGet("GetOnboardingPlan/{id}")]
         public async Task<IActionResult> GetOnboardingPlan(Guid id)
         {
-            var onboardingPlan = await _onboardingService.GetOnboardingPlan(id);
-            await _onboardingService.GetOnboardingPlanByEmployee(id););
+            //var onboardingPlan = await _onboardingService.GetOnboardingPlan(id);
+            var onboardingPlan = new OnboardingPlanDto(); //=
+            await _onboardingService.GetOnboardingPlanByEmployee(id);
             await _onboardingService.GetAllOnboardingPlans();
 
             if (onboardingPlan != null)
@@ -98,4 +100,5 @@ namespace EmployeePortal.Api.Controllers
                 return BadRequest(new BaseResult { IsSuccessfull = false, Message = "Invalid Data" });
             }
         }
+    }
 }

@@ -1,25 +1,54 @@
 <template>
   <div class="task-groups">
-    <v-btn color="primary" width="100%" class="mb-3" @click="openEditTaskGroupDialog(true, null)">+ Aufgabengruppe
-      hinzufügen</v-btn>
+    <v-btn color="primary" width="100%" class="mb-3" @click="openEditTaskGroupDialog(true, null)"
+      >+ Aufgabengruppe hinzufügen</v-btn
+    >
 
-  <v-expansion-panels v-if="taskGroups != null && taskGroups.length > 0">
-      <v-expansion-panel v-for="(group, idx) in taskGroups" :key="group.id" bg-color="var(--very-light-blue)"
-        :style="{ marginBottom: idx < taskGroups.length - 1 ? '20px' : '0' }">
+    <v-expansion-panels v-if="taskGroups != null && taskGroups.length > 0">
+      <v-expansion-panel
+        v-for="(group, idx) in taskGroups"
+        :key="group.id"
+        bg-color="var(--very-light-blue)"
+        :style="{ marginBottom: idx < taskGroups.length - 1 ? '20px' : '0' }"
+      >
         <v-expansion-panel-title>
           <div class="header-taskgroup">
             <div>
               <h2>{{ group.title }}</h2>
               <br />
-              <p><strong>Ansprechpartner:</strong> {{ group.contactPersonName }}</p>
+              <p><strong>Ansprechpartner:</strong> {{ group.referencePerson }}</p>
             </div>
             <div class="buttons-taskgroup">
-              <v-btn :color="'var(--status-inactive-update)'" density="compact" icon rounded="true"
-                @click.stop="openEditTaskGroupDialog(true, group)">
+              <v-btn
+                :color="'var(--status-inactive-update)'"
+                density="compact"
+                icon
+                rounded="true"
+                @click.stop="openEditTaskGroupDialog(true, group)"
+              >
                 <v-icon size="18" color="white">mdi-pencil</v-icon>
               </v-btn>
-              <v-btn color="error" density="compact" icon="mdi-delete" rounded="true"
-                @click.stop="console.log('Delete clicked', group)"></v-btn>
+              <v-btn
+                color="error"
+                density="compact"
+                icon="mdi-delete"
+                rounded="true"
+                @click.stop="openDeleteDialog(group)"
+              ></v-btn>
+              <v-dialog v-model="showDeleteDialog" max-width="400">
+                <v-card>
+                  <v-card-title class="headline">Gruppe löschen?</v-card-title>
+                  <v-card-text>
+                    Möchten Sie die Aufgabengruppe
+                    <strong>{{ groupToDelete?.title }}</strong> wirklich löschen?
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer />
+                    <v-btn color="grey" text @click="showDeleteDialog = false">Abbrechen</v-btn>
+                    <v-btn color="error" text @click="confirmDeleteGroup(group.id)">Löschen</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
             </div>
           </div>
         </v-expansion-panel-title>
@@ -29,8 +58,13 @@
       </v-expansion-panel>
     </v-expansion-panels>
   </div>
-  <EditOnboardingTaskGroup v-if="showEditTaskGroupDialog" @close="openEditTaskGroupDialog(false, null)"
-    @submit="handleSaveTaskGroup" @save-task="handleTaskSaved" :selectedGroup="selectedGroup" />
+  <EditOnboardingTaskGroup
+    v-if="showEditTaskGroupDialog"
+    @close="openEditTaskGroupDialog(false, null)"
+    @submit="handleSaveTaskGroup"
+    @save-task="handleTaskSaved"
+    :selectedGroup="selectedGroup"
+  />
 </template>
 
 <script setup>
@@ -44,7 +78,6 @@ const onboardingStore = useOnboardingStore()
 const showEditTaskGroupDialog = ref(false)
 
 const taskGroups = toRef(onboardingStore.state.currentGroups)
-
 
 const openEditTaskGroupDialog = (show, group) => {
   showEditTaskGroupDialog.value = show
@@ -75,7 +108,7 @@ const openEditTaskGroupDialog = (show, group) => {
 // }
 
 onMounted(() => {
- console.log('Onboarding Task Groups mounted, current task groups:', taskGroups)
+  console.log('Onboarding Task Groups mounted, current task groups:', taskGroups)
 })
 </script>
 

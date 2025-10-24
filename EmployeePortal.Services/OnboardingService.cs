@@ -73,7 +73,7 @@ namespace EmployeePortal.Services
 
         public async Task<OnboardingPlanDto> UpdateOnboardingPlan(OnboardingPlanDto onboardingPlanDataDto)
         {
-            var existingPlan = await _onboardingRepository.GetById(onboardingPlanDataDto.OnboardingId.Value);
+            var existingPlan = await _onboardingRepository.GetPlanById(onboardingPlanDataDto.OnboardingId.Value);
             if (existingPlan == null)
             {
                 throw new Exception("OnboardingPlan not found");
@@ -218,93 +218,88 @@ namespace EmployeePortal.Services
             throw new NotImplementedException();
         }
     }
-
-  
-
-    private object CreateTaskFromDto(TaskDto taskDto)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<OnboardingPlanDto> UpdateOnboardingPlan(OnboardingPlanDto onboardingPlanDataDto)
-    {
-        var existingPlan = await _onboardingRepository.GetById(onboardingPlanDataDto.OnboardingId.Value);
-        if (existingPlan == null)
-        {
-            throw new Exception("OnboardingPlan not found");
-        }
-
-        existingPlan.StartDate = onboardingPlanDataDto.StartDate;
-        existingPlan.EndDate = onboardingPlanDataDto.EndDate;
-        existingPlan.Status = onboardingPlanDataDto.Status;
-
-        if (onboardingPlanDataDto.ReferencePerson != null && existingPlan.ReferencePerson != onboardingPlanDataDto.ReferencePerson)
-        {
-            var referenceEmployee = await _employeeRepository.FindByIdAsync(onboardingPlanDataDto.ReferencePerson);
-            if (referenceEmployee == null)
-            {
-                throw new Exception("Employee not found");
-            }
-            existingPlan.ReferencePerson = onboardingPlanDataDto.ReferencePerson;
-        }
-        else
-        {
-            existingPlan.ReferencePerson = null;
-        }
-
-        if (existingPlan.TaskGroups == null)
-        {
-            existingPlan.TaskGroups = new List<TaskGroup>();
-        }
-
-        if (onboardingPlanDataDto.TaskGroups != null)
-        {
-            foreach (var taskGroupDto in onboardingPlanDataDto.TaskGroups)
-            {
-                var existingTaskGroup = existingPlan.TaskGroups.FirstOrDefault(tg => tg.Id == taskGroupDto.Id);
-                if (existingTaskGroup != null)
-                {
-                    existingTaskGroup.Title = taskGroupDto.Title;
-                    if (taskGroupDto.ReferencePerson != null && existingTaskGroup.ReferencePerson != taskGroupDto.ReferencePerson)
-                    {
-                        var referenceEmployee = await _employeeRepository.FindByIdAsync(taskGroupDto.ReferencePerson);
-                        if (referenceEmployee == null)
-                        {
-                            throw new Exception("Employee not found");
-                        }
-                        existingTaskGroup.ReferencePerson = taskGroupDto.ReferencePerson;
-                    }
-                    else
-                    {
-                        existingTaskGroup.ReferencePerson = null;
-                    }
-
-                    foreach (var taskDto in taskGroupDto.Tasks)
-                    {
-                        var existingTask = existingTaskGroup.Tasks.FirstOrDefault(t => t.Id == taskDto.Id);
-                        if (existingTask != null)
-                        {
-                            existingTask.Title = taskDto.Title;
-                            existingTask.Status = Enum.Parse<Status>(taskDto.Status);
-                            updateSpecificTaskType(existingTask, taskDto);
-                        }
-                        else
-                        {
-                            var newTask = CreateTaskFromDto(taskDto);
-                            existingTaskGroup.Tasks.Add(newTask);
-                        }
-                    }
-                }
-
-            }
-        }
-
-        await _onboardingRepository.Update(existingPlan);
-        await _onboardingRepository.Commit();
-
-        return _mapper.Map<OnboardingPlanDto>(existingPlan);
-    }
 }
+
+ 
+
+        //public async Task<OnboardingPlanDto> UpdateOnboardingPlan(OnboardingPlanDto onboardingPlanDataDto)
+        //{
+        //    var existingPlan = await _onboardingRepository.GetById(onboardingPlanDataDto.OnboardingId.Value);
+        //    if (existingPlan == null)
+        //    {
+        //        throw new Exception("OnboardingPlan not found");
+        //    }
+
+        //    existingPlan.StartDate = onboardingPlanDataDto.StartDate;
+        //    existingPlan.EndDate = onboardingPlanDataDto.EndDate;
+        //    existingPlan.Status = onboardingPlanDataDto.Status;
+
+        //    if (onboardingPlanDataDto.ReferencePerson != null && existingPlan.ReferencePerson != onboardingPlanDataDto.ReferencePerson)
+        //    {
+        //        var referenceEmployee = await _employeeRepository.FindByIdAsync(onboardingPlanDataDto.ReferencePerson);
+        //        if (referenceEmployee == null)
+        //        {
+        //            throw new Exception("Employee not found");
+        //        }
+        //        existingPlan.ReferencePerson = onboardingPlanDataDto.ReferencePerson;
+        //    }
+        //    else
+        //    {
+        //        existingPlan.ReferencePerson = null;
+        //    }
+
+        //    if (existingPlan.TaskGroups == null)
+        //    {
+        //        existingPlan.TaskGroups = new List<TaskGroup>();
+        //    }
+
+        //    if (onboardingPlanDataDto.TaskGroups != null)
+        //    {
+        //        foreach (var taskGroupDto in onboardingPlanDataDto.TaskGroups)
+        //        {
+        //            var existingTaskGroup = existingPlan.TaskGroups.FirstOrDefault(tg => tg.Id == taskGroupDto.Id);
+        //            if (existingTaskGroup != null)
+        //            {
+        //                existingTaskGroup.Title = taskGroupDto.Title;
+        //                if (taskGroupDto.ReferencePerson != null && existingTaskGroup.ReferencePerson != taskGroupDto.ReferencePerson)
+        //                {
+        //                    var referenceEmployee = await _employeeRepository.FindByIdAsync(taskGroupDto.ReferencePerson);
+        //                    if (referenceEmployee == null)
+        //                    {
+        //                        throw new Exception("Employee not found");
+        //                    }
+        //                    existingTaskGroup.ReferencePerson = taskGroupDto.ReferencePerson;
+        //                }
+        //                else
+        //                {
+        //                    existingTaskGroup.ReferencePerson = null;
+        //                }
+
+        //                foreach (var taskDto in taskGroupDto.Tasks)
+        //                {
+        //                    var existingTask = existingTaskGroup.Tasks.FirstOrDefault(t => t.Id == taskDto.Id);
+        //                    if (existingTask != null)
+        //                    {
+        //                        existingTask.Title = taskDto.Title;
+        //                        existingTask.Status = Enum.Parse<Status>(taskDto.Status);
+        //                        updateSpecificTaskType(existingTask, taskDto);
+        //                    }
+        //                    else
+        //                    {
+        //                        var newTask = CreateTaskFromDto(taskDto);
+        //                        existingTaskGroup.Tasks.Add(newTask);
+        //                    }
+        //                }
+        //            }
+
+        //        }
+        //    }
+
+        //    await _onboardingRepository.Update(existingPlan);
+        //    await _onboardingRepository.Commit();
+
+        //    return _mapper.Map<OnboardingPlanDto>(existingPlan);
+        //}
 
 
     

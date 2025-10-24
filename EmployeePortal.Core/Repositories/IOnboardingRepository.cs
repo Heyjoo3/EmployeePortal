@@ -14,6 +14,7 @@ namespace EmployeePortal.Core.Repositories
         Task <OnboardingPlan> Create(OnboardingPlan onboardingPlan);
         Task <OnboardingPlan> Update(OnboardingPlan onboardingPlan);
         Task <bool> Delete(Guid id);
+        Task <OnboardingPlan> GetPlanById(OnboardingPlan onboardingPlan);
 
     }
 }
