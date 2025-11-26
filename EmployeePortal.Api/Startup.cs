@@ -74,8 +74,13 @@ namespace EmployeePortal
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IVacationRepository, VacationRepository>();
             services.AddScoped<IOnboardingRepository, OnboardingRepository>();
+            services.AddScoped<ITaskGroupRepository, TaskGroupRepository>();
+            services.AddScoped<ITaskRepository, TaskRepository>();
 
 
+            var serviceProvider = services.BuildServiceProvider();
+            var employeeRepository = serviceProvider.GetRequiredService<IEmployeeRepository>();
+            EmployeeHelper.Initialize(employeeRepository);
 
 
 

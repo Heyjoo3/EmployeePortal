@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EmployeePortal.Core.Dto;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,6 +12,19 @@ namespace EmployeePortal.Core.Models
     public class TodoTask : BaseTask
     {
         public string? Description { get; set; }
+
+        public override void UpdateTask(TaskDto taskDto)
+        {
+            if (taskDto == null)
+            {
+                throw new ArgumentNullException(nameof(taskDto));
+            }
+
+            Title = taskDto.Title;
+            Status = taskDto.Status;
+            TaskType = taskDto.TaskType ?? TaskType;
+            Description = taskDto.Description;
+        }
     }
 }
 

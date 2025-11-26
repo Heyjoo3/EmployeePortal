@@ -11,10 +11,8 @@ namespace EmployeePortal.Core.Repositories
     {
         Task<OnboardingPlan?> GetByEmployeeId(Guid employeeId);
         Task<IEnumerable<OnboardingPlan>> GetAllWithDetails();
-        Task <OnboardingPlan> Create(OnboardingPlan onboardingPlan);
         Task <OnboardingPlan> Update(OnboardingPlan onboardingPlan);
-        Task <bool> Delete(Guid id);
-        Task <OnboardingPlan> GetPlanById(OnboardingPlan onboardingPlan);
-
+        Task Delete(Guid id);
+        Task <OnboardingPlan> GetPlanById(Guid onboardingId);
     }
 }

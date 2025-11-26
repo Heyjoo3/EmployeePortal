@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EmployeePortal.Core.Dto;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,20 +13,24 @@ namespace EmployeePortal.Core.Models
     public abstract class BaseTask
     {
         [Key]
-        public string Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         public string Title { get; set; }
         public Status Status { get; set; } = Status.Open;
         public string TaskType { get; set; }
 
-        public Guid? TaskGroupId { get; set; }
-        public TaskGroup? TaskGroup { get; set; }
+        //public Guid? TaskGroupId { get; set; }
+        //public TaskGroup? TaskGroup { get; set; }
 
         public string? ReferencePerson { get; set; }
         [ForeignKey(nameof(ReferencePerson))]
         public Employee? ReferenceEmployee { get; set; }
 
+        public Guid? TaskGroupId { get; set; }
+        [ForeignKey(nameof(TaskGroupId))]
+        public TaskGroup? TaskGroup { get; set; }
 
+        public abstract void UpdateTask(TaskDto taskDto);
     }
 
     public enum Status

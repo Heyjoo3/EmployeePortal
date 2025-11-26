@@ -19,49 +19,46 @@ namespace EmployeePortal.Api.Controllers
         }
 
         [HttpPost("CreateTaskGroup")]
-        public async Task<IActionResult> CreateTaskGroup(IFormCollection TaskGroupData)
+        public async Task<IActionResult> CreateTaskGroup([FromBody] TaskGroupDto taskGroupDto)
         {
-           if (TaskGroupData.TryGetValue("taskGroupFormData", out var someStrin)) 
+
+            try
             {
-                try
-                {
-                    var taskGroupDto = JsonConvert.DeserializeObject<TaskGroupDto>(someStrin);
-                    var taskGroup = await _taskGroupService.CreateTaskGroup(taskGroupDto);
-                    return Ok(new BaseResult { Data = taskGroup, IsSuccessfull = true });
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex);
-                }
+                var taskGroup = await _taskGroupService.CreateTaskGroup(taskGroupDto);
+                return Ok(new BaseResult { Data = taskGroup, IsSuccessfull = true });
             }
-            else
-                return BadRequest(ModelState.IsValid);
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
-        [HttpDelete("DeleteTaskGroup/{id}")]
-        public async Task<IActionResult> DeleteTaskGroup(Guid id)
+        [HttpDelete("DeleteTaskGroup")]
+        public async Task<IActionResult> DeleteTaskGroup([FromBody] string id)
         {
-            return Ok(await _taskGroupService.DeleteTaskGroup(id));
+            try
+            {
+                return Ok(await _taskGroupService.DeleteTaskGroup(Guid.Parse(id)));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+
         }
 
         [HttpPost("UpdateTaskGroup")]
-        public async Task<IActionResult> UpdateTaskGroup(IFormCollection TaskGroupData)
-        {          
-           if (TaskGroupData.TryGetValue("taskGroupFormData", out var someStrin))
+        public async Task<IActionResult> UpdateTaskGroup([FromBody] TaskGroupDto taskGroupDto)
+        {
+            try
             {
-                try
-                {
-                    var taskGroupDto = JsonConvert.DeserializeObject<TaskGroupDto>(someStrin);
-                    var taskGroup = await _taskGroupService.UpdateTaskGroup(taskGroupDto);
-                    return Ok(new BaseResult { Data = taskGroup, IsSuccessfull = true });
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex);
-                }
+                var taskGroup = await _taskGroupService.UpdateTaskGroup(taskGroupDto);
+                return Ok(new BaseResult { Data = taskGroup, IsSuccessfull = true });
             }
-            else
-                return BadRequest(ModelState.IsValid);
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
     }
 }

@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace EmployeePortal.Core.Repositories
 {
-    public interface ITodoTaskRepository : IRepository<TodoTask>
+    public interface ITaskRepository : IRepository<BaseTask>
     {
+        Task DeleteTask(Guid taskId);
     }
 }

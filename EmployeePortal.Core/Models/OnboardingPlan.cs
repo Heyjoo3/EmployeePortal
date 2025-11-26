@@ -12,9 +12,9 @@ namespace EmployeePortal.Core.Models
     public class OnboardingPlan
     {
         [Key]
-        public Guid OnbardingId { get; set; }
-        public Guid EmployeeId { get; set; }
-        public Employee? Employee { get; set; }
+        public Guid OnboardingId { get; set; } = Guid.NewGuid();
+        //public Guid EmployeeId { get; set; }
+        //public Guid? EmployeeId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public Status Status { get; set; } = Status.Open;
@@ -25,5 +25,31 @@ namespace EmployeePortal.Core.Models
         [ForeignKey(nameof(ReferencePerson))]
         public Employee? ReferenceEmployee { get; set; }
 
+        public string? EmployeeId { get; set; }
+        [ForeignKey(nameof(EmployeeId))]
+        public Employee? Employee { get; set; }
+
+        public int CalculateProgress()
+        {
+            if (TaskGroups == null || !TaskGroups.Any())
+                return 0;
+
+            int totalTasks = 0;
+            int completedTasks = 0;
+
+            foreach (var taskGroup in TaskGroups)
+            {
+                if (taskGroup.Tasks != null)
+                {
+                    totalTasks += taskGroup.Tasks.Count;
+                    completedTasks += taskGroup.Tasks.Count(task => task.Status == Status.Done);
+                }
+            }
+
+            if (totalTasks == 0)
+                return 0;
+
+            return (int)((double)completedTasks / totalTasks * 100);
+        }
     } 
 }

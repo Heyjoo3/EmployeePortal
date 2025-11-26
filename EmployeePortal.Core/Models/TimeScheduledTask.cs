@@ -1,4 +1,5 @@
-﻿using EmployeePortal.Core.Interfaces;
+﻿using EmployeePortal.Core.Dto;
+using EmployeePortal.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace EmployeePortal.Core.Models
 {
     public class TimeScheduledTask : BaseTask, ISchedulable
     {
-        public DateTime?StartDate { get; set; }
-        public DateTime?   EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public string? Description { get; set; }
 
         public Task<TimeSpan?> CalculateDuration()
@@ -22,6 +23,21 @@ namespace EmployeePortal.Core.Models
 
             TimeSpan duration = EndDate.Value - StartDate.Value;
             return Task.FromResult<TimeSpan?>(duration);
+        }
+
+        public override void UpdateTask(TaskDto taskDto)
+        {
+            if (taskDto == null)
+            {
+                throw new ArgumentNullException(nameof(taskDto));
+            }
+
+            Title = taskDto.Title;
+            TaskType = taskDto.TaskType ?? TaskType;
+            Status = taskDto.Status;
+            Description = taskDto.Description;
+            StartDate = taskDto.StartDate;
+            EndDate = taskDto.EndDate;
         }
     }
 }

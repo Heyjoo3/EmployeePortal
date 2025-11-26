@@ -13,7 +13,7 @@ namespace EmployeePortal.Core.Models
         public class TaskGroup
         {
             [Key]
-            public string? Id { get; set; }
+            public Guid Id { get; set; } = Guid.NewGuid();
             public string Title { get; set; }
             public Guid? OnboardingPlanId { get; set; }
             public OnboardingPlan? OnboardingPlan { get; set; }

@@ -20,35 +20,64 @@ namespace EmployeePortal.Data
             get { return _context as EmployeePortalContext; }
         }
 
-        public Task Create(OnboardingPlan onboardingPlan)
+        public async Task Delete(Guid id)
         {
+            var onboardingPlan = await EmployeePortalContext.OnboardingPlans
+                .Include(op => op.TaskGroups)
+                .ThenInclude(tg => tg.Tasks)
+                .FirstOrDefaultAsync(op => op.OnboardingId == id);
 
-            throw new NotImplementedException();
+            if (onboardingPlan == null)
+            {
+                throw new KeyNotFoundException($"Onboarding plan with ID {id} was not found.");
+            }
+
+            // Remove all tasks in the task groups
+            foreach (var taskGroup in onboardingPlan.TaskGroups ?? new List<TaskGroup>())
+            {
+                EmployeePortalContext.Tasks.RemoveRange(taskGroup.Tasks);
+            }
+
+            // Remove all task groups
+            EmployeePortalContext.TaskGroups.RemoveRange(onboardingPlan.TaskGroups);
+
+            // Remove the onboarding plan
+            EmployeePortalContext.OnboardingPlans.Remove(onboardingPlan);
+
+            // Save changes
+            await EmployeePortalContext.SaveChangesAsync();
         }
 
-        public Task<bool> Delete(Guid id)
+        public async Task<IEnumerable<OnboardingPlan>> GetAllWithDetails()
         {
-            throw new NotImplementedException();
+            return await EmployeePortalContext.OnboardingPlans
+                .Include(op => op.TaskGroups)
+                .ThenInclude(tg => tg.Tasks)
+                .ToListAsync();
         }
 
-        public Task<IEnumerable<OnboardingPlan>> GetAllWithDetails()
+        public async Task<OnboardingPlan?> GetByEmployeeId(Guid employeeId)
         {
-            throw new NotImplementedException();
+            return await EmployeePortalContext.OnboardingPlans
+                .Include(op => op.TaskGroups)
+                .ThenInclude(tg => tg.Tasks)
+                .FirstOrDefaultAsync(op => op.EmployeeId == employeeId.ToString());
         }
 
-        public Task<OnboardingPlan?> GetByEmployeeId(Guid employeeId)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task<OnboardingPlan?> GetByEmployeeIdAsync(Guid employeeId)
+        public async Task<OnboardingPlan> GetPlanById(Guid onboardingId)
         {
-            throw new NotImplementedException();
-        }
+            var onboardingPlan = await EmployeePortalContext.OnboardingPlans
+                .Include(op => op.TaskGroups)
+                .ThenInclude(tg => tg.Tasks)
+                .FirstOrDefaultAsync(op => op.OnboardingId == onboardingId);
 
-        public Task<OnboardingPlan> GetPlanById(OnboardingPlan onboardingPlan)
-        {
-            throw new NotImplementedException();
+            if (onboardingPlan == null)
+            {
+                throw new KeyNotFoundException($"Onboarding plan with ID {onboardingId} was not found.");
+            }
+
+            return onboardingPlan;
         }
 
         public async Task<OnboardingPlan> Update(OnboardingPlan onboardingPlan)
@@ -58,9 +87,5 @@ namespace EmployeePortal.Data
             return onboardingPlan;
         }
 
-        Task<OnboardingPlan> IOnboardingRepository.Create(OnboardingPlan onboardingPlan)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

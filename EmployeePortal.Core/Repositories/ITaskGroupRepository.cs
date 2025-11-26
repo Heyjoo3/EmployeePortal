@@ -9,5 +9,6 @@ namespace EmployeePortal.Core.Repositories
 {
     public interface ITaskGroupRepository : IRepository<TaskGroup>
     {
+        Task DeleteTaskGroup(Guid taskGroupId);
     }
 }

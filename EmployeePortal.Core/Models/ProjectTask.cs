@@ -1,4 +1,7 @@
-﻿using EmployeePortal.Core.Interfaces;
+﻿using EmployeePortal.Core.Dto;
+using EmployeePortal.Core.Helpers;
+using EmployeePortal.Core.Interfaces;
+using EmployeePortal.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +27,25 @@ namespace EmployeePortal.Core.Models
 
             TimeSpan duration = EndDate.Value - StartDate.Value;
             return Task.FromResult<TimeSpan?>(duration);
+        }
+
+        public override async void UpdateTask(TaskDto taskDto)
+        {
+            if (taskDto == null)
+            {
+                throw new ArgumentNullException(nameof(taskDto));
+            }
+
+            Title = taskDto.Title;
+            TaskType = taskDto.TaskType ?? TaskType;
+            Status = taskDto.Status;
+            Description = taskDto.Description;
+            StartDate = taskDto.StartDate;
+            EndDate = taskDto.EndDate;
+            Priority = taskDto.Priority ?? Priority;
+            Tools = taskDto.Tools;
+            ReferencePerson = await EmployeeHelper.ValidateReferencePersonAsync(taskDto.ReferencePerson);
+
         }
     }
 
